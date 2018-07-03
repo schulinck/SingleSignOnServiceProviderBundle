@@ -12,6 +12,8 @@
         <parameter key="krtv_single_sign_on_service_provider.authentication.handler.authentication_failure.class">Krtv\Bundle\SingleSignOnServiceProviderBundle\Authentication\Handler\AuthenticationFailureHandler</parameter>
         <parameter key="krtv_single_sign_on_service_provider.listener.otp.class">Krtv\Bundle\SingleSignOnServiceProviderBundle\Firewall\OneTimePasswordListener</parameter>
 
+        <parameter key="krtv_single_sign_on_service_provider.http_utils.class">Krtv\Bundle\SingleSignOnServiceProviderBundle\HttpUtils\HttpUtils</parameter>
+
         <parameter key="krtv_single_sign_on_service_provider.context_listener.class">Krtv\Bundle\SingleSignOnServiceProviderBundle\EventListener\AuthenticationContextSubscriber</parameter>
         <parameter key="krtv_single_sign_on_service_provider.context_factory.class">Krtv\Bundle\SingleSignOnServiceProviderBundle\Context\AuthenticationContextFactory</parameter>
         <parameter key="krtv_single_sign_on_service_provider.context_factory.attribute">_sso_context</parameter>
@@ -79,6 +81,15 @@
             <argument type="service" id="krtv_single_sign_on_service_provider.uri_signer"/>
 
             <tag name="twig.extension"/>
+        </service>
+
+        <service id="krtv_single_sign_on_service_provider.http_utils"
+                 class="%krtv_single_sign_on_service_provider.http_utils.class%"
+                 public="false"
+                 decorates="security.http_utils"
+                 decoration-inner-name="security.http_utils.inner">
+            <argument type="service" id="router" on-invalid="null" />
+            <argument type="service" id="router" on-invalid="null" />
         </service>
     </services>
 </container>
