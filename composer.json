@@ -14,6 +14,12 @@
             "email": "dmitry@korotovsky.io"
         }
     ],
+    "repositories": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/schulinck/SingleSignOnLibrary"
+        }
+    ],
     "require": {
         "php": ">=5.5",
 
