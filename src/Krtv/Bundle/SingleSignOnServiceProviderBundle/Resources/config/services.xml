@@ -69,6 +69,10 @@
             <argument type="string">%krtv_single_sign_on_service_provider.context_factory.attribute%</argument>
         </service>
 
+        <!-- temp fix for symfony 4 -->
+        <service id="krtv_single_sign_on_service_provider.context_factory" parent="krtv_single_sign_on_service_provider.context_factory.abstract">
+        </service>
+        
         <service id="krtv_single_sign_on_service_provider.authentication.handler.authentication_failure.abstract" class="%krtv_single_sign_on_service_provider.authentication.handler.authentication_failure.class%" parent="security.authentication.failure_handler" abstract="true" public="false">
 
         </service>
