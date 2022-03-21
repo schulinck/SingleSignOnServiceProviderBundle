@@ -3,6 +3,7 @@
 namespace Krtv\Bundle\SingleSignOnServiceProviderBunde\Tests\DependencyInjection;
 
 use Krtv\Bundle\SingleSignOnServiceProviderBundle\DependencyInjection\KrtvSingleSignOnServiceProviderExtension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
@@ -17,18 +18,19 @@ class KrtvSingleSignOnServiceProviderExtensionTest extends TestCase
      */
     public function testLoad()
     {
-        $containerMock = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerBuilder')
-            ->enableProxyingToOriginalMethods()
-            ->setConstructorArgs(array(
-                new ParameterBag()
-            ))
-            ->getMock();
+        $containerMock = new ContainerBuilder();
+
+        // remove default aliases of 'service_container' : Psr\Container\ContainerInterface  & Symfony\Component\DependencyInjection\ContainerInterface
+        foreach ($containerMock->getAliases() as $id => $alias) {
+            $containerMock->removeAlias($id);
+        }
+        // default definition like of 'service_container'
+        foreach ($containerMock->getDefinitions() as $id => $definition) {
+            $containerMock->removeDefinition($id);
+        }
 
         $configs = array(
             array(
-                'host' => 'idp.example.com',
-                'host_scheme' => 'https',
-                'login_path' => '/sso/login/',
                 'otp_manager' => array(
                     'name' => 'http',
                     'managers' => array(
@@ -67,6 +69,7 @@ class KrtvSingleSignOnServiceProviderExtensionTest extends TestCase
             'krtv_single_sign_on_service_provider.authentication.handler.authentication_failure.abstract',
             'krtv_single_sign_on_service_provider.uri_signer',
             'krtv_single_sign_on_service_provider.twig.extension.url_signer',
+            'krtv_single_sign_on_service_provider.http_utils',
         );
 
         foreach ($services as $service) {
@@ -90,9 +93,6 @@ class KrtvSingleSignOnServiceProviderExtensionTest extends TestCase
         $this->assertCount(count($aliases), $containerMock->getAliases());
 
         $parameters = array(
-            'krtv_single_sign_on_service_provider.host' => 'idp.example.com',
-            'krtv_single_sign_on_service_provider.host_scheme' => 'https',
-            'krtv_single_sign_on_service_provider.login_path' => '/sso/login/',
             'krtv_single_sign_on_service_provider.otp_manager' => array(
                 'name' => 'http',
                 'managers' => array(

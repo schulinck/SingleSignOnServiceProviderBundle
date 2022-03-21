@@ -26,7 +26,7 @@ class AuthenticationFailureHandlerTest extends TestCase
             ->getMock();
 
         $failureHandler = new AuthenticationFailureHandler(
-            $this->createMock('Symfony\Component\HttpKernel\HttpKernelInterface'),
+            $this->getMockBuilder('Symfony\Component\HttpKernel\HttpKernelInterface')->getMock(),
             $this->getMockBuilder('Symfony\Component\Security\Http\HttpUtils')
                 ->enableProxyingToOriginalMethods()
                 ->getMock(),
@@ -36,7 +36,7 @@ class AuthenticationFailureHandlerTest extends TestCase
                 'failure_forward'        => false,
                 'failure_path_parameter' => '_failure_path'
             ),
-            $this->createMock('Psr\Log\LoggerInterface')
+            $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock()
         );
         $failureHandler->setUriSigner($signerMock);
 

@@ -8,6 +8,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
+if (!class_exists('\PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Framework\TestCase')) {
+    class_alias('\PHPUnit\Framework\TestCase', '\PHPUnit_Framework_TestCase');
+}
+
 /**
  * Class ResolveSecretPassTest
  * @package Krtv\Bundle\SingleSignOnServiceProviderBunde\Tests\DependencyInjection\Compiler
