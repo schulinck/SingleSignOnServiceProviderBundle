@@ -3,6 +3,7 @@
 namespace Krtv\Bundle\SingleSignOnServiceProviderBunde\Tests\Authentication\Handler;
 
 use Krtv\Bundle\SingleSignOnServiceProviderBundle\Authentication\Handler\AuthenticationFailureHandler;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -12,7 +13,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
  * Class AuthenticationFailureHandlerTest
  * @package Krtv\Bundle\SingleSignOnServiceProviderBunde\Tests\Authentication\Handler
  */
-class AuthenticationFailureHandlerTest extends \PHPUnit_Framework_TestCase
+class AuthenticationFailureHandlerTest extends TestCase
 {
     /**
      *
@@ -25,7 +26,7 @@ class AuthenticationFailureHandlerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $failureHandler = new AuthenticationFailureHandler(
-            $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface'),
+            $this->createMock('Symfony\Component\HttpKernel\HttpKernelInterface'),
             $this->getMockBuilder('Symfony\Component\Security\Http\HttpUtils')
                 ->enableProxyingToOriginalMethods()
                 ->getMock(),
@@ -35,7 +36,7 @@ class AuthenticationFailureHandlerTest extends \PHPUnit_Framework_TestCase
                 'failure_forward'        => false,
                 'failure_path_parameter' => '_failure_path'
             ),
-            $this->getMock('Psr\Log\LoggerInterface')
+            $this->createMock('Psr\Log\LoggerInterface')
         );
         $failureHandler->setUriSigner($signerMock);
 
@@ -49,6 +50,6 @@ class AuthenticationFailureHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotNull($response);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
-        $this->assertRegExp('#^http://idp.example.com/login\?_otp_failure=1&_otp_failure_time=\d{10}\.\d{0,4}&_hash=.*$#', $response->getTargetUrl());
+        $this->assertMatchesRegularExpression('#^http://idp.example.com/login\?_hash=.*&_otp_failure=1&_otp_failure_time=\d{10}\.\d{0,4}$#', $response->getTargetUrl());
     }
 } 

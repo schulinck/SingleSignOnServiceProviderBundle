@@ -3,6 +3,8 @@
 namespace Krtv\Bundle\SingleSignOnServiceProviderBunde\Tests\DependencyInjection\Compiler;
 
 use Krtv\Bundle\SingleSignOnServiceProviderBundle\DependencyInjection\Compiler\ResolveSecretPass;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -10,17 +12,17 @@ use Symfony\Component\DependencyInjection\Definition;
  * Class ResolveSecretPassTest
  * @package Krtv\Bundle\SingleSignOnServiceProviderBunde\Tests\DependencyInjection\Compiler
  */
-class ResolveSecretPassTest extends \PHPUnit_Framework_TestCase
+class ResolveSecretPassTest extends TestCase
 {
     /**
-     * @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject
+     * @var ContainerBuilder|MockObject
      */
     private $container;
 
     /**
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerBuilder')
             ->getMock();
