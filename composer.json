@@ -21,11 +21,11 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.3",
 
-        "doctrine/orm": "~2.6",
+        "doctrine/orm": "^2.7",
 
-        "korotovsky/sso-library": "0.6.x",
+        "korotovsky/sso-library": "^0.7",
 
         "ext-openssl": "*"
     },
