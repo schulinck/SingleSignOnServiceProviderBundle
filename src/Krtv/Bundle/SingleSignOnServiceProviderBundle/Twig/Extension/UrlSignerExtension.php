@@ -3,11 +3,13 @@
 namespace Krtv\Bundle\SingleSignOnServiceProviderBundle\Twig\Extension;
 
 use Symfony\Component\HttpKernel\UriSigner;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Class VacancyProposalTrackExtension.
  */
-class UrlSignerExtension extends \Twig_Extension
+class UrlSignerExtension extends AbstractExtension
 {
     /**
      * @var UriSigner
@@ -37,7 +39,7 @@ class UrlSignerExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('sso_url_signer', [$this, 'getSignedUrl']),
+            new TwigFunction('sso_url_signer', [$this, 'getSignedUrl']),
         ];
     }
 

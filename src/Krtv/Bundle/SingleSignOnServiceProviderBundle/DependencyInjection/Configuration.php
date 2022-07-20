@@ -18,9 +18,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
+        $builder = new TreeBuilder('krtv_single_sign_on_service_provider');
 
-        $builder->root('krtv_single_sign_on_service_provider')
+        $builder->getRootNode()
             ->children()
                 ->scalarNode('host')
                     ->isRequired()
