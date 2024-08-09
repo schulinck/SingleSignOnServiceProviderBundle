@@ -84,7 +84,7 @@ class KrtvSingleSignOnServiceProviderExtension extends Extension
         $authenticationProviderDefinition->replaceArgument(2, new Reference('krtv_single_sign_on_service_provider.security.authentication.manager.otp'));
     }
 
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'krtv_single_sign_on_service_provider';
     }
